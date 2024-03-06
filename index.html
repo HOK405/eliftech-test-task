@@ -22,9 +22,22 @@
         </div>
         <div id="cart" style="display:none;">
             <h2>Cart</h2>
-            <!-- Cart items will be listed here -->
-            <div id="cart-items"></div>
+            <div class="cart-flex-container">
+                <div class="cart-info">
+                    <form id="customerInfo">
+                        <input type="text" placeholder="Name" id="customerName"><br>
+                        <input type="email" placeholder="Email" id="customerEmail"><br>
+                        <input type="tel" placeholder="Phone" id="customerPhone"><br>
+                        <textarea placeholder="Address" id="customerAddress"></textarea><br>
+                        <button type="button" onclick="submitOrder()">Submit Order</button>
+                    </form>
+                </div>
+                <div id="cart-items">
+                    <!-- Cart items will be listed here -->
+                </div>
+            </div>
         </div>
+        
     </div>
     <script src="script.js"></script>
 </body>

@@ -79,3 +79,13 @@ function fetchDrugs(shopId) {
             });
         });
 }
+
+function submitOrder() {
+    const name = document.getElementById('customerName').value;
+    const email = document.getElementById('customerEmail').value;
+    const phone = document.getElementById('customerPhone').value;
+    const address = document.getElementById('customerAddress').value;
+    
+    console.log('Order Info:', { name, email, phone, address });
+    // Тут можна додати логіку для відправки інформації на сервер або інше оброблення
+}
