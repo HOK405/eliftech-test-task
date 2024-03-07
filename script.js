@@ -20,9 +20,14 @@ function switchTab(tab) {
 }
 
 
-function addToCart(drugName) {
-    cart.push(drugName);
-}
+function addToCart(drugId, name, price, imageLink) {
+    if (cart[drugId]) {
+      cart[drugId].quantity += 1;
+    } else {
+      cart[drugId] = { name, price, imageLink, quantity: 1 };
+    }
+    updateCartUI();
+  }
 
 function removeFromCart(index) {
     cart.splice(index, 1);
@@ -30,18 +35,21 @@ function removeFromCart(index) {
 }
 
 function updateCartUI() {
-    const cartContainer = document.getElementById('cart-items');
-    cartContainer.innerHTML = '';
-    cart.forEach((item, index) => {
-        const itemElement = document.createElement('div');
-        itemElement.innerText = item;
-        const removeButton = document.createElement('button');
-        removeButton.innerText = 'Remove';
-        removeButton.onclick = function() { removeFromCart(index); };
-        itemElement.appendChild(removeButton);
-        cartContainer.appendChild(itemElement);
+    const cartItemsContainer = document.getElementById('cart-items');
+    cartItemsContainer.innerHTML = ''; 
+  
+    Object.keys(cart).forEach(drugId => {
+      const drug = cart[drugId];
+      const drugElement = document.createElement('div');
+      drugElement.innerHTML = `
+        <img src="${drug.imageLink}" alt="${drug.name}" style="width: 50px; height: 50px;">
+        <p>Name: ${drug.name}</p>
+        <p>Price: ${drug.price}</p>
+        <p>Quantity: ${drug.quantity}</p>
+      `;
+      cartItemsContainer.appendChild(drugElement);
     });
-}
+  }
 
 
 function fetchShops() {
