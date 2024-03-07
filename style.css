@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Product+Sans:wght@400;700&display=swap');
+
+body{
+    font-family: 'Product Sans', sans-serif; 
+}
+
+#selection {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+#selection, #cart {
+    padding: 20px;
+}
+
+#cart {
+    border-top: 2px solid #ccc; 
+}
+
+#cart-items div {
+    margin-bottom: 10px;
+    margin-left: 40px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+}
+
+#container {
+    display: flex;
+    width: 100%;
+}
+
+#shops, #drugs {
+    padding: 20px;
+}
+
+#shops {
+    width: 10%; 
+    background-color: #f0f0f0;
+    border: 2px solid #ccc; 
+    border-radius: 15px;
+    margin-right: 20px;
+    overflow: auto; /* Змінено з hidden на auto для коректного відображення прокрутки, якщо вона потрібна */
+}
+
+#drugs {
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Можна налаштувати для кращого розміщення елементів */
+    grid-gap: 5px;
+    padding: 20px;
+    overflow-y: auto; /* Додаємо прокрутку, якщо контент перевищує висоту */
+}
+
+.drug {
+    width: 85%; 
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 2px solid #ccc; 
+    background-color: #f9f9f9;
+    border-radius: 10px; 
+}
+
+.add-to-cart {
+    background-color: #3396ff;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 5px; 
+}
+
+#shops div {
+    text-align: center;
+    margin-bottom: 10px;
+    padding: 10px; 
+    border: 2px solid #ccc; 
+    border-radius: 10px; 
+    cursor: pointer; 
+}
+
+
+/* Поля вводу контактної інформації покупця */
+.cart-flex-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cart-info, #cart-items {
+    width: 48%; /* Розподіляємо простір між формою і списком товарів */
+}
+
+#customerInfo input, #customerInfo textarea {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+}
+
+#customerInfo textarea {
+    height: 100px; /* Задаємо висоту для поля адреси */
+}
+
+#customerInfo button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
