@@ -54,6 +54,7 @@ app.get('/api/drugs', async (req, res) => {
 });
 
 
+
 app.get('/api/drugs/:id', async (req, res) => {
     const drugId = req.params.id;
 
