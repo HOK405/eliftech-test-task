@@ -15,6 +15,7 @@ body{
 }
 
 #cart {
+    width: 50%;
     border-top: 2px solid #ccc; 
 }
 
@@ -22,13 +23,14 @@ body{
     margin-bottom: 10px;
     margin-left: 40px;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 2px solid #ddd;
     background-color: #f9f9f9;
+    border-radius: 10px;
 }
 
 #container {
     display: flex;
-    width: 100%;
+    width: 80%;
 }
 
 #shops, #drugs {
@@ -36,6 +38,7 @@ body{
 }
 
 #shops {
+    min-width: 25%;
     width: 10%; 
     background-color: #f0f0f0;
     border: 2px solid #ccc; 
@@ -54,7 +57,7 @@ body{
 }
 
 .drug {
-    width: 85%; 
+    width: 350px; 
     margin-bottom: 10px;
     padding: 10px;
     border: 2px solid #ccc; 
@@ -81,15 +84,18 @@ body{
     cursor: pointer; 
 }
 
-
-/* Поля вводу контактної інформації покупця */
 .cart-flex-container {
     display: flex;
     justify-content: space-between;
 }
 
-.cart-info, #cart-items {
-    width: 48%; /* Розподіляємо простір між формою і списком товарів */
+.cart-info {
+    min-width: 250px;
+    width: 30%;
+}
+#cart-items {
+    align-content: center;
+    width: 300px;
 }
 
 #customerInfo input, #customerInfo textarea {
@@ -99,7 +105,7 @@ body{
 }
 
 #customerInfo textarea {
-    height: 100px; /* Задаємо висоту для поля адреси */
+    height: 100px; 
 }
 
 #customerInfo button {
