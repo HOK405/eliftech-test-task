@@ -34,14 +34,25 @@ app.get('/api/shops', async (req, res) => {
 });
 
 app.get('/api/drugs', async (req, res) => {
+    const shopId = req.query.shopId;
+
     try {
-        const { rows } = await pool.query('SELECT * FROM Drugs');
+        let query = 'SELECT * FROM Drugs';
+        let params = [];
+
+        if (shopId && Number.isInteger(parseInt(shopId))) {
+            query += ' WHERE ShopId = $1';
+            params.push(shopId);
+        }
+
+        const { rows } = await pool.query(query, params);
         res.json(rows);
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
 
 app.get('/api/drugs/:id', async (req, res) => {
     const drugId = req.params.id;

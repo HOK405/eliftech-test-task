@@ -92,12 +92,17 @@ function fetchShops() {
 }
 
 function fetchDrugs(shopId) {
-    fetch('http://localhost:3000/api/drugs')
+    let url = 'http://localhost:3000/api/drugs';
+    if (shopId) {
+        url += `?shopId=${shopId}`;
+    }
+
+    fetch(url)
         .then(response => response.json())
         .then(data => {
             const drugsContainer = document.getElementById('drugs');
             drugsContainer.innerHTML = '';
-            data.filter(drug => drug.shopId === shopId).forEach(drug => {
+            data.forEach(drug => {
                 const drugElement = document.createElement('div');
                 drugElement.className = 'drug';
                 drugElement.innerHTML = `
@@ -111,6 +116,7 @@ function fetchDrugs(shopId) {
             });
         });
 }
+
 
 function submitOrder() {
     const name = document.getElementById('customerName').value;
