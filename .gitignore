@@ -103,13 +103,14 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Environment variables
+.env
 
 ### Dropbox ###
 # Dropbox settings and caches
 .dropbox
 .dropbox.attr
 .dropbox.cache
-
 
 ### Sass ###
 .sass-cache/

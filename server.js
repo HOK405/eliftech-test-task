@@ -1,24 +1,27 @@
+require('dotenv').config();
+
 const express = require('express');
-const { Pool } = require('pg'); // Import Pool from pg module
+const { Pool } = require('pg'); 
 const app = express();
-const port = 3000;
+const port = process.env.PORT;
 
 // PostgreSQL connection settings
 const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'MedicineDeliveryAppDB',
-    password: '1111',
-    port: 5432,
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT,
+    ssl: {
+        rejectUnauthorized: false
+    }
 });
 
 // Enable CORS
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
-    res.header(
-        'Access-Control-Allow-Headers',
-        'Origin, X-Requested-With, Content-Type, Accept'
-    );
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     next();
 });
 
@@ -53,8 +56,6 @@ app.get('/api/drugs', async (req, res) => {
     }
 });
 
-
-
 app.get('/api/drugs/:id', async (req, res) => {
     const drugId = req.params.id;
 
@@ -78,5 +79,38 @@ app.get('/api/drugs/:id', async (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
+    console.log(`Server running on port ${port}`);
 });
+
+app.use(express.json()); 
+
+app.post('/api/orders', async (req, res) => {
+    const { name, email, phone, address, orderDetails } = req.body;
+
+    try {
+        await pool.query('BEGIN'); // Start transaction
+
+        const orderResult = await pool.query(
+            'INSERT INTO Orders(Name, Email, Phone, Address) VALUES($1, $2, $3, $4) RETURNING Id',
+            [name, email, phone, address]
+        );
+
+        const orderId = orderResult.rows[0].id;
+
+        for (const detail of orderDetails) {
+            await pool.query(
+                'INSERT INTO OrderDetails(OrderId, DrugId, Quantity) VALUES($1, $2, $3)',
+                [orderId, detail.drugId, detail.quantity]
+            );
+        }
+
+        await pool.query('COMMIT'); // Commit transaction
+
+        res.json({ success: true, message: 'Order placed successfully', orderId });
+    } catch (err) {
+        await pool.query('ROLLBACK'); // Rollback transaction on error
+        console.error(err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
