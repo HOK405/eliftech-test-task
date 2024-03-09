@@ -25,7 +25,15 @@ app.use((req, res, next) => {
     next();
 });
 
+// Static file
+app.use(express.static(__dirname)); 
+
+
 // Routes
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+  });
+
 app.get('/api/shops', async (req, res) => {
     try {
         const { rows } = await pool.query('SELECT * FROM Shops');
