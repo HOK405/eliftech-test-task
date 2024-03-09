@@ -69,7 +69,7 @@ function updateCartUI() {
 
 
 function fetchShops() {
-    fetch('http://localhost:3000/api/shops')
+    fetch('https://eliftech-test-task-b9og.onrender.com/api/shops')
         .then(response => response.json())
         .then(data => {
             const shopsContainer = document.getElementById('shops');
@@ -84,7 +84,7 @@ function fetchShops() {
 }
 
 function fetchDrugs(shopId) {
-    let url = 'http://localhost:3000/api/drugs';
+    let url = 'https://eliftech-test-task-b9og.onrender.com/api/drugs';
     if (shopId) {
         url += `?shopId=${shopId}`;
     }
@@ -126,7 +126,7 @@ function submitOrder() {
         quantity,
     }));
 
-    fetch('http://localhost:3000/api/orders', {
+    fetch('https://eliftech-test-task-b9og.onrender.com/api/orders', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
